@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "canisters": {
+    "game_token": {
+      "candid": "src/game_token/game_token.did",
+      "package": "game_token",
+      "type": "rust",
+      "optimize": "cycles",
+      "init_arg": "()",
+      "post_upgrade": "post_upgrade()",
+      "pre_upgrade": "pre_upgrade()",
+      "build": {
+        "args": "--release"
+      },
+      "settings": {
+        "controllers": [],
+        "compute_allocation": 5,
+        "memory_allocation": 4294967296,
+        "freezing_threshold": 7776000,
+        "reserved_cycles_limit": 10000000000000
+      }
+    },
+    "player_nft": {
+      "candid": "src/player_nft/player_nft.did",
+      "package": "player_nft",
+      "type": "rust",
+      "optimize": "cycles",
+      "init_arg": "()",
+      "post_upgrade": "post_upgrade()",
+      "pre_upgrade": "pre_upgrade()",
+      "build": {
+        "args": "--release"
+      },
+      "settings": {
+        "controllers": [],
+        "compute_allocation": 5,
+        "memory_allocation": 8589934592,
+        "freezing_threshold": 7776000,
+        "reserved_cycles_limit": 15000000000000
+      }
+    },
+    "auction_factory": {
+      "candid": "src/auction_factory/auction_factory.did",
+      "package": "auction_factory",
+      "type": "rust",
+      "optimize": "cycles",
+      "init_arg": "()",
+      "post_upgrade": "post_upgrade()",
+      "pre_upgrade": "pre_upgrade()",
+      "build": {
+        "args": "--release"
+      },
+      "settings": {
+        "controllers": [],
+        "compute_allocation": 3,
+        "memory_allocation": 2147483648,
+        "freezing_threshold": 7776000,
+        "reserved_cycles_limit": 20000000000000
+      }
+    },
+    "auction": {
+      "candid": "src/auction/auction.did",
+      "package": "auction",
+      "type": "rust",
+      "optimize": "cycles",
+      "init_arg": "()",
+      "post_upgrade": "post_upgrade()",
+      "pre_upgrade": "pre_upgrade()",
+      "build": {
+        "args": "--release"
+      },
+      "settings": {
+        "controllers": [],
+        "compute_allocation": 2,
+        "memory_allocation": 1073741824,
+        "freezing_threshold": 7776000,
+        "reserved_cycles_limit": 5000000000000
+      }
+    },
+    "mystery_box": {
+      "candid": "src/mystery_box/mystery_box.did",
+      "package": "mystery_box",
+      "type": "rust",
+      "optimize": "cycles",
+      "init_arg": "()",
+      "post_upgrade": "post_upgrade()",
+      "pre_upgrade": "pre_upgrade()",
+      "build": {
+        "args": "--release"
+      },
+      "settings": {
+        "controllers": [],
+        "compute_allocation": 4,
+        "memory_allocation": 4294967296,
+        "freezing_threshold": 7776000,
+        "reserved_cycles_limit": 10000000000000
+      }
+    },
+    "game_engine": {
+      "candid": "src/game_engine/game_engine.did",
+      "package": "game_engine",
+      "type": "rust",
+      "optimize": "cycles",
+      "init_arg": "()",
+      "post_upgrade": "post_upgrade()",
+      "pre_upgrade": "pre_upgrade()",
+      "build": {
+        "args": "--release"
+      },
+      "settings": {
+        "controllers": [],
+        "compute_allocation": 8,
+        "memory_allocation": 8589934592,
+        "freezing_threshold": 7776000,
+        "reserved_cycles_limit": 20000000000000
+      }
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "--release",
+      "packtool": ""
+    },
+    "replica": {
+      "subnet_type": "application"
+    }
+  },
+  "networks": {
+    "ic": {
+      "providers": [
+        "https://icp0.io",
+        "https://icp-api.io",
+        "https://ic0.app"
+      ],
+      "type": "persistent"
+    }
+  },
+  "output_env_file": ".env.production",
+  "canister_defaults": {
+    "type": "rust",
+    "build": {
+      "optimize": "cycles",
+      "args": "--release"
+    },
+    "settings": {
+      "controllers": [],
+      "compute_allocation": 1,
+      "memory_allocation": 0,
+      "freezing_threshold": 7776000,
+      "reserved_cycles_limit": 5000000000000
+    }
+  }
+} 
