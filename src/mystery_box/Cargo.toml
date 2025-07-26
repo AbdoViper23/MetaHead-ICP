@@ -1,0 +1,21 @@
+[package]
+name = "mystery_box"
+version = "0.1.0"
+edition = "2021"
+description = "Mystery box system for random NFT generation using ICP randomness"
+repository = "https://github.com/your-repo/metahead-icp"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+candid = { workspace = true }
+ic-cdk = { workspace = true }
+ic-cdk-macros = { workspace = true }
+ic-stable-structures = { workspace = true }
+serde = { workspace = true }
+ciborium = { workspace = true }
+
+# For randomness and hashing
+sha2 = { workspace = true }
+hex = { workspace = true } 

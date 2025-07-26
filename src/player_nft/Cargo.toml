@@ -1,0 +1,22 @@
+[package]
+name = "player_nft"
+version = "0.1.0"
+edition = "2021"
+description = "ICRC-7 compliant NFT collection for MetaHead player cards"
+repository = "https://github.com/your-repo/metahead-icp"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+candid = { workspace = true }
+ic-cdk = { workspace = true }
+ic-cdk-macros = { workspace = true }
+ic-stable-structures = { workspace = true }
+serde = { workspace = true }
+ciborium = { workspace = true }
+
+# ICRC-7 NFT specific dependencies
+icrc-ledger-types = { workspace = true }
+num-bigint = { workspace = true }
+num-traits = { workspace = true } 

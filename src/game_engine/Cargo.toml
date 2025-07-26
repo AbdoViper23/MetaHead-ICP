@@ -1,0 +1,20 @@
+[package]
+name = "game_engine"
+version = "0.1.0"
+edition = "2021"
+description = "Main game engine for MetaHead trading card game logic and match management"
+repository = "https://github.com/your-repo/metahead-icp"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+candid = { workspace = true }
+ic-cdk = { workspace = true }
+ic-cdk-macros = { workspace = true }
+ic-stable-structures = { workspace = true }
+serde = { workspace = true }
+ciborium = { workspace = true }
+
+# For game timing and scheduling
+ic-cdk-timers = { workspace = true } 

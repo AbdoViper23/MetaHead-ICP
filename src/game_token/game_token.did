@@ -1,0 +1,43 @@
+type Account = record {
+    owner : principal;
+    subaccount : opt blob;
+};
+
+type TransferArgs = record {
+    from_subaccount : opt blob;
+    to : Account;
+    amount : nat;
+    fee : opt nat;
+    memo : opt blob;
+    created_at_time : opt nat64;
+};
+
+type TransferError = variant {
+    BadFee : record { expected_fee : nat };
+    BadBurn : record { min_burn_amount : nat };
+    InsufficientFunds : record { balance : nat };
+    TooOld;
+    CreatedInFuture;
+    Duplicate : record { duplicate_of : nat };
+    TemporarilyUnavailable;
+    GenericError : record { error_code : nat; message : text };
+};
+
+type Result = variant { Ok : nat; Err : TransferError };
+type Result_1 = variant { Ok; Err : text };
+
+service : {
+    // ICRC-1 Standard Functions
+    icrc1_name : () -> (text) query;
+    icrc1_symbol : () -> (text) query;
+    icrc1_decimals : () -> (nat8) query;
+    icrc1_fee : () -> (nat) query;
+    icrc1_total_supply : () -> (nat) query;
+    icrc1_minting_account : () -> (opt Account) query;
+    icrc1_balance_of : (Account) -> (nat) query;
+    icrc1_transfer : (TransferArgs) -> (Result);
+
+    // Game-specific Functions
+    mint_game_tokens : (Account, nat) -> (Result_1);
+    burn_game_tokens : (Account, nat) -> (Result_1);
+} 

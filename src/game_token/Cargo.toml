@@ -1,0 +1,22 @@
+[package]
+name = "game_token"
+version = "0.1.0"
+edition = "2021"
+description = "ICRC-1 compliant game token for MetaHead trading card game"
+repository = "https://github.com/your-repo/metahead-icp"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+candid = { workspace = true }
+ic-cdk = { workspace = true }
+ic-cdk-macros = { workspace = true }
+ic-stable-structures = { workspace = true }
+serde = { workspace = true }
+ciborium = { workspace = true }
+
+# ICRC-1 specific dependencies
+icrc-ledger-types = { workspace = true }
+num-bigint = { workspace = true }
+num-traits = { workspace = true } 

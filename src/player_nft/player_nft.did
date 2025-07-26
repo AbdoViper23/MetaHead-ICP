@@ -1,0 +1,52 @@
+type Account = record {
+    owner : principal;
+    subaccount : opt blob;
+};
+
+type PlayerCard = record {
+    id : nat;
+    name : text;
+    rarity : text;
+    attack : nat32;
+    defense : nat32;
+    speed : nat32;
+    special_ability : text;
+    image_url : text;
+};
+
+type TransferArgs = record {
+    spender_subaccount : opt blob;
+    from : Account;
+    to : Account;
+    token_id : nat;
+    memo : opt blob;
+    created_at_time : opt nat64;
+};
+
+type TransferError = variant {
+    Unauthorized;
+    TooOld;
+    CreatedInFuture;
+    Duplicate : record { duplicate_of : nat };
+    TemporarilyUnavailable;
+    GenericError : record { error_code : nat; message : text };
+};
+
+type Result = variant { Ok : nat; Err : text };
+
+service : {
+    // ICRC-7 Standard Functions
+    icrc7_name : () -> (text) query;
+    icrc7_symbol : () -> (text) query;
+    icrc7_total_supply : () -> (nat) query;
+    icrc7_tokens : (opt nat, opt nat) -> (vec nat) query;
+    icrc7_owner_of : (vec nat) -> (vec opt Account) query;
+    icrc7_balance_of : (vec Account) -> (vec nat) query;
+    icrc7_tokens_of : (Account, opt nat, opt nat) -> (vec nat) query;
+    icrc7_transfer : (vec TransferArgs) -> (vec opt TransferError);
+
+    // Game-specific Functions
+    get_player_card : (nat) -> (opt PlayerCard) query;
+    get_player_cards_by_rarity : (text) -> (vec PlayerCard) query;
+    mint_player_card : (Account, text, text, nat32, nat32, nat32, text, text) -> (Result);
+} 

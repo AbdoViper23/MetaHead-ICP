@@ -1,0 +1,39 @@
+type AuctionStatus = variant {
+    Active;
+    Ended;
+    Cancelled;
+};
+
+type AuctionInfo = record {
+    id : nat;
+    canister_id : principal;
+    seller : principal;
+    nft_canister : principal;
+    token_id : nat;
+    starting_price : nat;
+    current_highest_bid : nat;
+    highest_bidder : opt principal;
+    end_time : nat64;
+    status : AuctionStatus;
+    created_at : nat64;
+};
+
+type CreateAuctionArgs = record {
+    nft_canister : principal;
+    token_id : nat;
+    starting_price : nat;
+    duration_hours : nat64;
+};
+
+type Result = variant { Ok : nat; Err : text };
+type Result_1 = variant { Ok; Err : text };
+
+service : {
+    create_auction : (CreateAuctionArgs) -> (Result);
+    get_auction : (nat) -> (opt AuctionInfo) query;
+    get_active_auctions : () -> (vec AuctionInfo) query;
+    get_auctions_by_seller : (principal) -> (vec AuctionInfo) query;
+    update_auction_status : (nat, AuctionStatus) -> (Result_1);
+    update_auction_bid : (nat, nat, principal) -> (Result_1);
+    set_auction_template_wasm : (blob) -> (Result_1);
+} 

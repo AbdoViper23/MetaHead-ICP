@@ -1,0 +1,89 @@
+type Player = record {
+    id : principal;
+    username : text;
+    level : nat32;
+    experience : nat64;
+    wins : nat32;
+    losses : nat32;
+    deck : vec nat;
+    active_deck : vec nat;
+};
+
+type MatchStatus = variant {
+    WaitingForPlayer;
+    Active;
+    Finished;
+    Cancelled;
+};
+
+type MoveType = variant {
+    PlayCard;
+    Attack;
+    UseSpecialAbility;
+    EndTurn;
+};
+
+type GameMove = record {
+    player : principal;
+    move_type : MoveType;
+    card_id : opt nat;
+    target_card_id : opt nat;
+    timestamp : nat64;
+};
+
+type GameMatch = record {
+    id : nat;
+    player1 : principal;
+    player2 : principal;
+    player1_deck : vec nat;
+    player2_deck : vec nat;
+    status : MatchStatus;
+    current_turn : principal;
+    turn_number : nat32;
+    winner : opt principal;
+    start_time : nat64;
+    last_move_time : nat64;
+    moves : vec GameMove;
+};
+
+type CreateMatchArgs = record {
+    deck : vec nat;
+};
+
+type JoinMatchArgs = record {
+    match_id : nat;
+    deck : vec nat;
+};
+
+type MakeMoveArgs = record {
+    match_id : nat;
+    move_type : MoveType;
+    card_id : opt nat;
+    target_card_id : opt nat;
+};
+
+type Result = variant { Ok; Err : text };
+type Result_1 = variant { Ok : nat; Err : text };
+
+service : {
+    // Player Management
+    register_player : (text) -> (Result);
+    update_player_deck : (vec nat) -> (Result);
+    set_active_deck : (vec nat) -> (Result);
+    get_player : (principal) -> (opt Player) query;
+
+    // Match Management
+    create_match : (CreateMatchArgs) -> (Result_1);
+    join_match : (JoinMatchArgs) -> (Result);
+    make_move : (MakeMoveArgs) -> (Result);
+    end_match : (nat, principal) -> (Result);
+    get_match : (nat) -> (opt GameMatch) query;
+    get_active_matches : () -> (vec GameMatch) query;
+    get_waiting_matches : () -> (vec GameMatch) query;
+    get_player_matches : (principal) -> (vec GameMatch) query;
+
+    // Configuration
+    set_player_nft_canister : (principal) -> (Result);
+    set_game_token_canister : (principal) -> (Result);
+    reward_player : (principal, nat) -> (Result);
+} 

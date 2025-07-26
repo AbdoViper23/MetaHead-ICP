@@ -1,0 +1,54 @@
+type BoxType = variant {
+    Common;
+    Rare;
+    Epic;
+    Legendary;
+};
+
+type CardTemplate = record {
+    name : text;
+    attack : nat32;
+    defense : nat32;
+    speed : nat32;
+    special_ability : text;
+    image_url : text;
+};
+
+type RarityWeight = record {
+    rarity : text;
+    weight : nat32;
+    cards : vec CardTemplate;
+};
+
+type MysteryBox = record {
+    id : nat;
+    box_type : BoxType;
+    price : nat;
+    available_count : nat32;
+    total_count : nat32;
+    rarity_weights : vec RarityWeight;
+};
+
+type OpenBoxArgs = record {
+    box_id : nat;
+};
+
+type BoxOpenResult = record {
+    player_card_id : nat;
+    rarity : text;
+    card_details : CardTemplate;
+};
+
+type Result = variant { Ok : nat; Err : text };
+type Result_1 = variant { Ok : BoxOpenResult; Err : text };
+type Result_2 = variant { Ok; Err : text };
+
+service : {
+    create_mystery_box : (BoxType, nat, nat32, vec RarityWeight) -> (Result);
+    open_mystery_box : (OpenBoxArgs) -> (Result_1);
+    get_mystery_box : (nat) -> (opt MysteryBox) query;
+    get_all_mystery_boxes : () -> (vec MysteryBox) query;
+    get_available_boxes : () -> (vec MysteryBox) query;
+    set_player_nft_canister : (principal) -> (Result_2);
+    set_game_token_canister : (principal) -> (Result_2);
+} 

@@ -1,0 +1,20 @@
+[package]
+name = "auction_factory"
+version = "0.1.0"
+edition = "2021"
+description = "Auction factory for creating and managing NFT auctions"
+repository = "https://github.com/your-repo/metahead-icp"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+candid = { workspace = true }
+ic-cdk = { workspace = true }
+ic-cdk-macros = { workspace = true }
+ic-stable-structures = { workspace = true }
+serde = { workspace = true }
+ciborium = { workspace = true }
+
+# For canister management and timers
+ic-cdk-timers = { workspace = true } 
