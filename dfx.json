@@ -1,19 +1,18 @@
 {
   "version": 1,
   "canisters": {
-    "MetaHead-ICP-frontend": {
+    "frontend": {
       "dependencies": [
         "game_token",
-        "player_nft",
+        "player_nft", 
         "auction_factory",
         "mystery_box",
         "game_engine"
       ],
       "source": [
-        "src/MetaHead-ICP-frontend/dist"
+        "frontend/out"
       ],
-      "type": "assets",
-      "workspace": "MetaHead-ICP-frontend"
+      "type": "assets"
     },
     "game_token": {
       "candid": "src/game_token/game_token.did",

@@ -45,7 +45,12 @@ if ! dfx ping > /dev/null 2>&1; then
     print_success "Local replica started"
 fi
 
-# Build all canisters first
+# Build frontend first
+print_status "Building frontend..."
+./scripts/build-frontend.sh
+print_success "Frontend built successfully"
+
+# Build all canisters
 print_status "Building all canisters..."
 dfx build
 print_success "All canisters built successfully"
@@ -199,7 +204,7 @@ echo "Mystery Box:              $MYSTERY_BOX_ID"
 echo "Game Engine:              $GAME_ENGINE_ID"
 echo ""
 echo "🔗 Frontend URLs (if deployed):"
-echo "Local: http://localhost:4943/?canisterId=$(dfx canister id MetaHead-ICP-frontend)"
+echo "Local: http://localhost:4943/?canisterId=$(dfx canister id frontend)"
 echo ""
 echo "🧪 Quick Test Commands:"
 echo "========================"
