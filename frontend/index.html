@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetaHead - ICP Trading Card Game</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .game-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section h2 {
+            margin-bottom: 20px;
+            color: #ffd700;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 5px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #4ecdc4, #2980b9);
+        }
+
+        .status {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: monospace;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .error {
+            color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: none;
+        }
+
+        .success {
+            color: #2ecc71;
+            background: rgba(46, 204, 113, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: none;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: #ffd700;
+            transform: scale(1.02);
+        }
+
+        .rarity-common { border-left: 4px solid #95a5a6; }
+        .rarity-rare { border-left: 4px solid #3498db; }
+        .rarity-epic { border-left: 4px solid #9b59b6; }
+        .rarity-legendary { border-left: 4px solid #f39c12; }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .container { padding: 10px; }
+            .section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚔️ MetaHead ⚔️</h1>
+            <p class="subtitle">Decentralized Trading Card Game on Internet Computer</p>
+        </header>
+
+        <div class="game-sections">
+            <!-- Player Management Section -->
+            <div class="section">
+                <h2>🎮 Player Management</h2>
+                <p>Register and manage your player profile</p>
+                <div class="status" id="playerStatus">
+                    Not connected
+                </div>
+                <button class="btn" onclick="connectWallet()">Connect Wallet</button>
+                <button class="btn btn-secondary" onclick="registerPlayer()">Register Player</button>
+                <div class="loading" id="playerLoading">⏳ Processing...</div>
+                <div class="error" id="playerError"></div>
+                <div class="success" id="playerSuccess"></div>
+            </div>
+
+            <!-- Token Management Section -->
+            <div class="section">
+                <h2>🪙 Game Tokens</h2>
+                <p>Manage your GAME tokens for purchases</p>
+                <div class="status" id="tokenBalance">
+                    Balance: Loading...
+                </div>
+                <button class="btn" onclick="checkTokenBalance()">Check Balance</button>
+                <button class="btn btn-secondary" onclick="mintTokens()">Mint Tokens (Dev)</button>
+                <div class="loading" id="tokenLoading">⏳ Loading...</div>
+                <div class="error" id="tokenError"></div>
+                <div class="success" id="tokenSuccess"></div>
+            </div>
+
+            <!-- Mystery Boxes Section -->
+            <div class="section">
+                <h2>📦 Mystery Boxes</h2>
+                <p>Open mystery boxes to get random player cards</p>
+                <div class="status" id="boxStatus">
+                    Available boxes: Loading...
+                </div>
+                <button class="btn" onclick="loadMysteryBoxes()">Load Boxes</button>
+                <button class="btn btn-secondary" onclick="openMysteryBox()">Open Box</button>
+                <div class="loading" id="boxLoading">⏳ Opening...</div>
+                <div class="error" id="boxError"></div>
+                <div class="success" id="boxSuccess"></div>
+            </div>
+
+            <!-- NFT Collection Section -->
+            <div class="section">
+                <h2>🃏 My Cards</h2>
+                <p>View and manage your player card collection</p>
+                <div class="status" id="nftStatus">
+                    Collection: Loading...
+                </div>
+                <button class="btn" onclick="loadPlayerCards()">Load Cards</button>
+                <button class="btn btn-secondary" onclick="createAuction()">Create Auction</button>
+                <div class="loading" id="nftLoading">⏳ Loading...</div>
+                <div class="error" id="nftError"></div>
+                <div class="success" id="nftSuccess"></div>
+                
+                <div class="card-grid" id="cardGrid">
+                    <!-- Player cards will be displayed here -->
+                </div>
+            </div>
+
+            <!-- Game Matches Section -->
+            <div class="section">
+                <h2>⚔️ Battle Arena</h2>
+                <p>Create matches and battle other players</p>
+                <div class="status" id="matchStatus">
+                    Active matches: Loading...
+                </div>
+                <button class="btn" onclick="loadMatches()">Load Matches</button>
+                <button class="btn btn-secondary" onclick="createMatch()">Create Match</button>
+                <div class="loading" id="matchLoading">⏳ Processing...</div>
+                <div class="error" id="matchError"></div>
+                <div class="success" id="matchSuccess"></div>
+            </div>
+
+            <!-- Auction House Section -->
+            <div class="section">
+                <h2>🏛️ Auction House</h2>
+                <p>Buy and sell player cards through auctions</p>
+                <div class="status" id="auctionStatus">
+                    Active auctions: Loading...
+                </div>
+                <button class="btn" onclick="loadAuctions()">Load Auctions</button>
+                <button class="btn btn-secondary" onclick="placeBid()">Place Bid</button>
+                <div class="loading" id="auctionLoading">⏳ Loading...</div>
+                <div class="error" id="auctionError"></div>
+                <div class="success" id="auctionSuccess"></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Built on Internet Computer Protocol 🌐</p>
+            <p>Powered by IC Blockchain Technology</p>
+        </footer>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
