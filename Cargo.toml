@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "src/MetaHead-ICP-backend"
+]
+resolver = "2"

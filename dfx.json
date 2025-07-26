@@ -1,0 +1,27 @@
+{
+  "canisters": {
+    "MetaHead-ICP-backend": {
+      "candid": "src/MetaHead-ICP-backend/MetaHead-ICP-backend.did",
+      "package": "MetaHead-ICP-backend",
+      "type": "rust"
+    },
+    "MetaHead-ICP-frontend": {
+      "dependencies": [
+        "MetaHead-ICP-backend"
+      ],
+      "source": [
+        "src/MetaHead-ICP-frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "MetaHead-ICP-frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
