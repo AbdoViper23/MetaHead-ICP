@@ -1,25 +1,263 @@
-# Various IDEs and Editors
+# MetaHead ICP Game - Complete .gitignore
+# This file excludes build artifacts, dependencies, and sensitive files
+
+# ============================================================================
+# DFX / Internet Computer specific
+# ============================================================================
+
+# DFX local network data
+.dfx/
+# DFX cache and temporary files
+.dfx-cache/
+# Canister build outputs
+dist/
+# DFX identity files (contains sensitive keys)
+.identity/
+# DFX configuration overrides
+dfx-local.json
+
+# Canister IDs and deployment info (comment out if you want to track these)
+canister_ids.json
+.canister_ids/
+
+# ============================================================================
+# Rust specific
+# ============================================================================
+
+# Rust build artifacts
+target/
+Cargo.lock
+
+# Rust backup files
+**/*.rs.bk
+
+# Generated files from bindgen
+src/declarations/
+
+# ============================================================================
+# Node.js / Frontend specific
+# ============================================================================
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Package manager lockfiles (choose one to keep)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Frontend build outputs
+build/
+dist/
+.next/
+out/
+
+# Frontend environment files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ============================================================================
+# Environment and Configuration
+# ============================================================================
+
+# Environment files (may contain sensitive data)
+.env
+.env.production
+.env.development
+.env.test
+
+# Local configuration overrides
+config.local.json
+dfx-local.json
+
+# ============================================================================
+# Development Tools
+# ============================================================================
+
+# Editor and IDE files
 .vscode/
 .idea/
-**/*~
+*.swp
+*.swo
+*~
 
-# Mac OSX temporary files
+# OS generated files
 .DS_Store
-**/.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-# dfx temporary files
-.dfx/
+# ============================================================================
+# Logs and Debugging
+# ============================================================================
 
-# generated files
-**/declarations/
+# Application logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# rust
-target/
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
 
-# frontend code
-node_modules/
-dist/
-.svelte-kit/
+# ============================================================================
+# Testing and Coverage
+# ============================================================================
 
-# environment variables
-.env
+# Test coverage
+coverage/
+*.lcov
+.nyc_output/
+
+# Jest
+.jest/
+
+# ============================================================================
+# Deployment and Production
+# ============================================================================
+
+# Deployment artifacts
+deployment-info.txt
+deployment-*.txt
+deploy-*.log
+
+# Backup files
+backups/
+*.backup
+*.bak
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# ============================================================================
+# Security and Secrets
+# ============================================================================
+
+# Private keys and certificates
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Secrets and API keys
+secrets.json
+.secrets
+api-keys.json
+
+# Identity files
+identity.pem
+identity/
+
+# ============================================================================
+# Cycles and Wallet Management
+# ============================================================================
+
+# Wallet data
+wallet.json
+cycles-*.json
+
+# ============================================================================
+# Documentation and Assets
+# ============================================================================
+
+# Generated documentation
+docs/build/
+_book/
+
+# Large asset files (uncomment if needed)
+# *.png
+# *.jpg
+# *.jpeg
+# *.gif
+# *.mp4
+# *.avi
+
+# ============================================================================
+# Language-specific ignores
+# ============================================================================
+
+# Python (if using Python tools)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Java (if using Java tools)
+*.class
+*.jar
+*.war
+*.ear
+
+# ============================================================================
+# Specific to this project
+# ============================================================================
+
+# Quick start generated files
+quick-start.log
+
+# Last backup references
+.last_backup_*
+
+# Generated scripts
+generated_*.sh
+
+# Candid bindings (regenerated)
+src/declarations/
+
+# Frontend specific (when implemented)
+src/MetaHead-ICP-frontend/dist/
+src/MetaHead-ICP-frontend/node_modules/
+
+# ============================================================================
+# Optional: Uncomment sections below if needed
+# ============================================================================
+
+# Uncomment if you want to ignore all environment files
+# *.env
+# *.env.*
+
+# Uncomment if you want to ignore all JSON config files
+# *.json
+
+# Uncomment if you want to ignore all shell scripts (NOT recommended for this project)
+# *.sh
+
+# Uncomment if you're using specific tools
+# .terraform/
+# *.tfstate
+# *.tfstate.*
+
+# ============================================================================
+# Project-specific temporary files
+# ============================================================================
+
+# Testing and development
+test-results/
+benchmark-results/
+performance-logs/
+
+# Canister upgrade logs
+upgrade-*.log
+rollback-*.log
+
+# Local development overrides
+local-*.json
+dev-*.config

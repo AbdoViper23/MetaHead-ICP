@@ -1,27 +1,118 @@
 {
+  "version": 1,
   "canisters": {
-    "MetaHead-ICP-backend": {
-      "candid": "src/MetaHead-ICP-backend/MetaHead-ICP-backend.did",
-      "package": "MetaHead-ICP-backend",
-      "type": "rust"
-    },
     "MetaHead-ICP-frontend": {
       "dependencies": [
-        "MetaHead-ICP-backend"
+        "game_token",
+        "player_nft",
+        "auction_factory",
+        "mystery_box",
+        "game_engine"
       ],
       "source": [
         "src/MetaHead-ICP-frontend/dist"
       ],
       "type": "assets",
       "workspace": "MetaHead-ICP-frontend"
+    },
+    "game_token": {
+      "candid": "src/game_token/game_token.did",
+      "package": "game_token",
+      "type": "rust",
+      "optimize": "cycles",
+      "init_arg": "()",
+      "post_upgrade": "post_upgrade()",
+      "pre_upgrade": "pre_upgrade()"
+    },
+    "player_nft": {
+      "candid": "src/player_nft/player_nft.did",
+      "package": "player_nft",
+      "type": "rust",
+      "optimize": "cycles",
+      "init_arg": "()",
+      "post_upgrade": "post_upgrade()",
+      "pre_upgrade": "pre_upgrade()"
+    },
+    "auction_factory": {
+      "candid": "src/auction_factory/auction_factory.did",
+      "package": "auction_factory",
+      "type": "rust",
+      "optimize": "cycles",
+      "init_arg": "()",
+      "post_upgrade": "post_upgrade()",
+      "pre_upgrade": "pre_upgrade()"
+    },
+    "auction": {
+      "candid": "src/auction/auction.did",
+      "package": "auction",
+      "type": "rust",
+      "optimize": "cycles",
+      "init_arg": "()",
+      "post_upgrade": "post_upgrade()",
+      "pre_upgrade": "pre_upgrade()"
+    },
+    "mystery_box": {
+      "candid": "src/mystery_box/mystery_box.did",
+      "package": "mystery_box",
+      "type": "rust",
+      "optimize": "cycles",
+      "init_arg": "()",
+      "post_upgrade": "post_upgrade()",
+      "pre_upgrade": "pre_upgrade()"
+    },
+    "game_engine": {
+      "candid": "src/game_engine/game_engine.did",
+      "package": "game_engine",
+      "type": "rust",
+      "optimize": "cycles",
+      "init_arg": "()",
+      "post_upgrade": "post_upgrade()",
+      "pre_upgrade": "pre_upgrade()"
     }
   },
   "defaults": {
     "build": {
       "args": "",
       "packtool": ""
+    },
+    "replica": {
+      "subnet_type": "application"
+    }
+  },
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:4943",
+      "type": "ephemeral",
+      "replica": {
+        "subnet_type": "application"
+      }
+    },
+    "ic": {
+      "providers": [
+        "https://icp0.io",
+        "https://icp-api.io"
+      ],
+      "type": "persistent"
+    },
+    "playground": {
+      "providers": [
+        "https://playground.dfinity.network"
+      ],
+      "type": "playground"
     }
   },
   "output_env_file": ".env",
-  "version": 1
+  "canister_defaults": {
+    "type": "rust",
+    "build": {
+      "optimize": "cycles"
+    },
+    "settings": {
+      "controllers": [],
+      "compute_allocation": 1,
+      "memory_allocation": 0,
+      "freezing_threshold": 2592000,
+      "reserved_cycles_limit": 5000000000000
+    }
+  }
 }
